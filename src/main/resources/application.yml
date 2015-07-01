@@ -1,0 +1,25 @@
+security:
+#password cf client will use when interacting with broker
+  user.password: haselko_maselko
+yarn:
+  brokerusername: cf
+  brokergroupname: supergroup
+  brokeruserpass: cf1
+  #name of extended attribute holding information about binding
+  binding.xattr: user.binding
+  #name of extended attribute holding information about broker instance
+  instance.xattr: user.instance
+  #path on hdfs where binding metadata are stored
+  binding.chroot: ${broker.path:/cf/broker}/yarn/bindings
+  #path on hdfs where broker instance metadata are stored
+  instance.chroot: ${broker.path:/cf/broker}/yarn/instances
+  provided.params: ${hadoop.provided.params:{}}
+cf:
+  #name of service in cloud foundry catalog
+  servicename: ${cf.catalog.servicename:yarn}
+  #id of service in cloud foundry catalog
+  serviceid: ${cf.catalog.serviceid:yarn}
+kerberos:
+  kdc: ${krb.kdc.host:}
+  realm: ${krb.realm:}
+  namenodeprincipal: ${krb.namenodeprincipal:}

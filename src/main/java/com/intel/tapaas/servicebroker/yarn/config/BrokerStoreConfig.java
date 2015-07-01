@@ -1,0 +1,78 @@
+/**
+ * Copyright (c) 2015 Intel Corporation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.intel.tapaas.servicebroker.yarn.config;
+
+import com.intel.tapaas.cfbroker.store.api.BrokerStore;
+import com.intel.tapaas.cfbroker.store.hdfs.serialization.RepositoryDeserializer;
+import com.intel.tapaas.cfbroker.store.hdfs.serialization.RepositorySerializer;
+import com.intel.tapaas.cfbroker.store.hdfs.service.ChrootedHdfsClient;
+import com.intel.tapaas.cfbroker.store.hdfs.service.HdfsClient;
+import com.intel.tapaas.cfbroker.store.hdfs.service.XAttrsHdfsStore;
+import org.apache.hadoop.fs.FileSystem;
+import org.cloudfoundry.community.servicebroker.model.ServiceInstance;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.io.IOException;
+
+@Configuration
+public class BrokerStoreConfig {
+
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(BrokerStoreConfig.class);
+
+
+    @Autowired
+    private ExternalConfiguration configuration;
+
+    @Autowired
+    private FileSystem fs;
+
+    @Autowired
+    private RepositorySerializer<ServiceInstance> serializer;
+
+    @Autowired
+    @Qualifier(Qualifiers.SERVICE_INSTANCE)
+    private RepositoryDeserializer<ServiceInstance> deserializer;
+
+
+    @Bean
+    @Qualifier(Qualifiers.SERVICE_INSTANCE)
+    public BrokerStore getServiceInstanceStore() throws IOException {
+
+        HdfsClient hdfsClient =
+                new ChrootedHdfsClient(fs,
+                        configuration.getInstanceChroot());
+
+        return new XAttrsHdfsStore<>(hdfsClient, serializer, deserializer, configuration.getInstanceXattr());
+    }
+
+    @Bean
+    @Qualifier(Qualifiers.SERVICE_INSTANCE_BINDING)
+    public BrokerStore getServiceInstanceBindingStore() throws IOException {
+
+        HdfsClient hdfsClient =
+                new ChrootedHdfsClient(fs,
+                        configuration.getBindingChroot());
+
+        return new XAttrsHdfsStore<>(hdfsClient, serializer, deserializer, configuration.getBindingXattr());
+    }
+}
