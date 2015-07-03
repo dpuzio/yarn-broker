@@ -34,8 +34,6 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.intel.tapaas.servicebroker.yarn.service.YarnServiceInstanceBindingService.HADOOP_DEFAULT_FS;
-
 @Configuration
 public class ServiceInstanceBindingServiceConfig {
 
@@ -60,12 +58,9 @@ public class ServiceInstanceBindingServiceConfig {
                 HadoopConfigurationHelper.getHadoopConfFromJson(configuration.getHadoopProvidedParams());
 
         return ImmutableMap.of(
-                HADOOP_DEFAULT_FS,
-                hadoopConf.orElseThrow(() ->
-                        new RuntimeException(HADOOP_DEFAULT_FS + " was not found in hadoop configuration")).
-                        get(HADOOP_DEFAULT_FS),
-                "kerberos", ImmutableMap.of("kdc", configuration.getKerberosKdc(),
-                "krealm", configuration.getKerberosRealm()),
+                "kerberos", ImmutableMap.of(
+                        "kdc", "",
+                        "krealm", ""),
                 HadoopConfigurationHelper.TAPAAS_HADOOP_CONFIG_NODE_NAME,
                 ImmutableMap.copyOf(hadoopConf.orElse(Collections.emptyMap()))
         );

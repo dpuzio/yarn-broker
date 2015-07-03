@@ -34,8 +34,6 @@ import java.io.IOException;
 @Configuration
 public class ServiceInstanceServiceConfig {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(ServiceInstanceServiceConfig.class);
     @Autowired
     private ExternalConfiguration configuration;
 
@@ -46,8 +44,6 @@ public class ServiceInstanceServiceConfig {
     @Bean
     public ServiceInstanceService getServiceInstanceService() throws IllegalArgumentException,
             IOException, LoginException {
-
-        LOGGER.info("ChRoot : " + configuration.getInstanceChroot());
         return new YarnServiceInstanceService(new ServiceInstanceServiceStore(store));
     }
 }

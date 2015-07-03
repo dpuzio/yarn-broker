@@ -22,107 +22,40 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-@Profile(Profiles.CLOUD)
+@Profile("!Cloud")
 @Configuration
 public class ExternalConfiguration {
 
-    @Value("${yarn.brokerusername}")
+    @Value("${zk.cluster}")
     @NotNull
-    private String brokerUserName;
-
-    @Value("${yarn.brokeruserpass}")
-    @NotNull
-    private String brokerUserPassword;
-
-    @Value("${yarn.binding.xattr}")
-    @NotNull
-    private String bindingXattr;
-
-    @Value("${yarn.instance.xattr}")
-    @NotNull
-    private String instanceXattr;
-
-    @Value("${yarn.binding.chroot}")
-    @NotNull
-    private String bindingChroot;
-
-    @Value("${yarn.instance.chroot}")
-    @NotNull
-    private String instanceChroot;
-
-    @Value("${kerberos.kdc}")
-    @NotNull
-    private String kerberosKdc;
-
-    @Value("${kerberos.realm}")
-    @NotNull
-    private String kerberosRealm;
-
-    @Value("${cf.servicename}")
-    @NotNull
-    private String cfServiceName;
+    private String zkClusterHosts;
 
     @Value("${cf.serviceid}")
     @NotNull
     private String cfServiceId;
 
+    @Value("${cf.servicename}")
+    @NotNull
+    private String cfServiceName;
+
+    @Value("${broker.store.node}")
+    @NotNull
+    private String brokerStoreNode;
+
+    @Value("${broker.root.node}")
+    @NotNull
+    private String brokerRootNode;
+
+    @Value("${yarn.brokerusername}")
+    @NotNull
+    private String zkBrokerUserName;
+
+    @Value("${yarn.brokeruserpass}")
+    @NotNull
+    private String zkBrokerUserPass;
+
     @Value("${yarn.provided.params}")
     private String hadoopProvidedParams;
-    public String getBrokerUserName() {
-        return brokerUserName;
-    }
-
-    public void setBrokerUserName(String brokerUserName) {
-        this.brokerUserName = brokerUserName;
-    }
-
-    public String getBindingXattr() {
-        return bindingXattr;
-    }
-
-    public void setBindingXattr(String bindingXattr) {
-        this.bindingXattr = bindingXattr;
-    }
-
-    public String getInstanceXattr() {
-        return instanceXattr;
-    }
-
-    public void setInstanceXattr(String instanceXattr) {
-        this.instanceXattr = instanceXattr;
-    }
-
-    public String getBindingChroot() {
-        return bindingChroot;
-    }
-
-    public void setBindingChroot(String bindingChroot) {
-        this.bindingChroot = bindingChroot;
-    }
-
-    public String getInstanceChroot() {
-        return instanceChroot;
-    }
-
-    public void setInstanceChroot(String instanceChroot) {
-        this.instanceChroot = instanceChroot;
-    }
-
-    public String getKerberosKdc() {
-        return kerberosKdc;
-    }
-
-    public void setKerberosKdc(String kerberosKdc) {
-        this.kerberosKdc = kerberosKdc;
-    }
-
-    public String getKerberosRealm() {
-        return kerberosRealm;
-    }
-
-    public void setKerberosRealm(String kerberosRealm) {
-        this.kerberosRealm = kerberosRealm;
-    }
 
     public String getCfServiceName() {
         return cfServiceName;
@@ -148,11 +81,44 @@ public class ExternalConfiguration {
         this.hadoopProvidedParams = hadoopProvidedParams;
     }
 
-    public String getBrokerUserPassword() {
-        return brokerUserPassword;
+    public String getZkClusterHosts() {
+        return zkClusterHosts;
     }
 
-    public void setBrokerUserPassword(String brokerUserPassword) {
-        this.brokerUserPassword = brokerUserPassword;
+    public void setZkClusterHosts(String zkClusterHosts) {
+        this.zkClusterHosts = zkClusterHosts;
     }
+
+    public String getZkBrokerUserName() {
+        return zkBrokerUserName;
+    }
+
+    public void setZkBrokerUserName(String zkBrokerUserName) {
+        this.zkBrokerUserName = zkBrokerUserName;
+    }
+
+    public String getZkBrokerUserPass() {
+        return zkBrokerUserPass;
+    }
+
+    public void setZkBrokerUserPass(String zkBrokerUserPass) {
+        this.zkBrokerUserPass = zkBrokerUserPass;
+    }
+
+    public String getBrokerStoreNode() {
+        return brokerStoreNode;
+    }
+
+    public void setBrokerStoreNode(String brokerStoreNode) {
+        this.brokerStoreNode = brokerStoreNode;
+    }
+
+    public String getBrokerRootNode() {
+        return brokerRootNode;
+    }
+
+    public void setBrokerRootNode(String brokerRootNode) {
+        this.brokerRootNode = brokerRootNode;
+    }
+
 }

@@ -16,8 +16,6 @@
 
 package com.intel.tapaas.servicebroker.yarn.service;
 
-import com.google.common.base.Preconditions;
-import com.intel.tapaas.cfbroker.store.hdfs.helper.DirHelper;
 import com.intel.tapaas.cfbroker.store.impl.ForwardingServiceInstanceBindingServiceStore;
 import com.intel.tapaas.servicebroker.yarn.config.ExternalConfiguration;
 import org.cloudfoundry.community.servicebroker.exception.ServiceBrokerException;
@@ -30,8 +28,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class YarnServiceInstanceBindingService extends ForwardingServiceInstanceBindingServiceStore {
-
-    public final static String HADOOP_DEFAULT_FS = "fs.defaultFS";
 
     private final Map<String, Object> credentials;
 
@@ -61,14 +57,8 @@ public class YarnServiceInstanceBindingService extends ForwardingServiceInstance
 
     private Map<String, Object> getCredentialsFor(String serviceInstanceId) {
         Map<String, Object> credentialsCopy = new HashMap<>(credentials);
-        Preconditions.checkArgument(configuration.getInstanceChroot().startsWith("/"));
-
-        String dir =
-                DirHelper.removeTrailingSlashes(
-                        credentialsCopy.get(HADOOP_DEFAULT_FS).toString())
-                        + DirHelper.addLeadingSlash(DirHelper.removeTrailingSlashes(configuration
-                        .getInstanceChroot())) + "/" + serviceInstanceId + "/";
-        credentialsCopy.put("uri", dir);
+        credentialsCopy.put("zk.node", configuration.getBrokerRootNode() + "/" + serviceInstanceId);
+        credentialsCopy.put("zk.cluster", configuration.getZkClusterHosts());
         return credentialsCopy;
     }
 }

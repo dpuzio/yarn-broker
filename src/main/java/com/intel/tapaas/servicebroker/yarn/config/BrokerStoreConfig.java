@@ -17,62 +17,91 @@
 package com.intel.tapaas.servicebroker.yarn.config;
 
 import com.intel.tapaas.cfbroker.store.api.BrokerStore;
-import com.intel.tapaas.cfbroker.store.hdfs.serialization.RepositoryDeserializer;
-import com.intel.tapaas.cfbroker.store.hdfs.serialization.RepositorySerializer;
-import com.intel.tapaas.cfbroker.store.hdfs.service.ChrootedHdfsClient;
-import com.intel.tapaas.cfbroker.store.hdfs.service.HdfsClient;
-import com.intel.tapaas.cfbroker.store.hdfs.service.XAttrsHdfsStore;
-import org.apache.hadoop.fs.FileSystem;
+import com.intel.tapaas.cfbroker.store.serialization.RepositoryDeserializer;
+import com.intel.tapaas.cfbroker.store.serialization.RepositorySerializer;
+import com.intel.tapaas.cfbroker.store.zookeeper.service.ZookeeperClient;
+import com.intel.tapaas.cfbroker.store.zookeeper.service.ZookeeperClientBuilder;
+import com.intel.tapaas.cfbroker.store.zookeeper.service.ZookeeperStore;
+import org.cloudfoundry.community.servicebroker.model.CreateServiceInstanceBindingRequest;
 import org.cloudfoundry.community.servicebroker.model.ServiceInstance;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import java.io.IOException;
 
 @Configuration
 public class BrokerStoreConfig {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(BrokerStoreConfig.class);
-
-
     @Autowired
-    private ExternalConfiguration configuration;
+    private ExternalConfiguration config;
 
-    @Autowired
-    private FileSystem fs;
-
-    @Autowired
-    private RepositorySerializer<ServiceInstance> serializer;
+    private FactoryHelper helper;
 
     @Autowired
     @Qualifier(Qualifiers.SERVICE_INSTANCE)
-    private RepositoryDeserializer<ServiceInstance> deserializer;
+    private RepositorySerializer<ServiceInstance> instanceSerializer;
 
+    @Autowired
+    @Qualifier(Qualifiers.SERVICE_INSTANCE)
+    private RepositoryDeserializer<ServiceInstance> instanceDeserializer;
+
+    @Autowired
+    @Qualifier(Qualifiers.SERVICE_INSTANCE_BINDING)
+    private RepositorySerializer<CreateServiceInstanceBindingRequest> bindingSerializer;
+
+    @Autowired
+    @Qualifier(Qualifiers.SERVICE_INSTANCE_BINDING)
+    private RepositoryDeserializer<CreateServiceInstanceBindingRequest> bindingDeserializer;
+
+    public BrokerStoreConfig() {
+        this.helper = new FactoryHelper();
+    }
+
+    BrokerStoreConfig(ExternalConfiguration config, FactoryHelper helper) {
+        this.config = config;
+        this.helper = helper;
+    }
 
     @Bean
     @Qualifier(Qualifiers.SERVICE_INSTANCE)
-    public BrokerStore getServiceInstanceStore() throws IOException {
-
-        HdfsClient hdfsClient =
-                new ChrootedHdfsClient(fs,
-                        configuration.getInstanceChroot());
-
-        return new XAttrsHdfsStore<>(hdfsClient, serializer, deserializer, configuration.getInstanceXattr());
+    public BrokerStore<ServiceInstance> getServiceInstanceStore(ZookeeperClient zkClient)
+            throws IOException {
+        BrokerStore<ServiceInstance> brokerStore =
+                new ZookeeperStore<>(zkClient, instanceSerializer, instanceDeserializer);
+        return brokerStore;
     }
 
     @Bean
     @Qualifier(Qualifiers.SERVICE_INSTANCE_BINDING)
-    public BrokerStore getServiceInstanceBindingStore() throws IOException {
+    public BrokerStore<CreateServiceInstanceBindingRequest>
+    getServiceInstanceBindingStore(ZookeeperClient zkClient) throws IOException {
+        BrokerStore<CreateServiceInstanceBindingRequest> brokerStore =
+                new ZookeeperStore<>(zkClient, bindingSerializer, bindingDeserializer);
+        return brokerStore;
+    }
 
-        HdfsClient hdfsClient =
-                new ChrootedHdfsClient(fs,
-                        configuration.getBindingChroot());
+    @Bean
+    @Profile("!Cloud")
+    public ZookeeperClient getZKClient() throws  IOException {
+        ZookeeperClient zkClient = helper.getZkClientInstance(config.getZkClusterHosts(),
+                config.getZkBrokerUserName(),
+                config.getZkBrokerUserPass(),
+                config.getBrokerStoreNode());
+        zkClient.init();
+        return zkClient;
+    }
 
-        return new XAttrsHdfsStore<>(hdfsClient, serializer, deserializer, configuration.getBindingXattr());
+    final static class FactoryHelper {
+        ZookeeperClient getZkClientInstance(String zkCluster,
+                                            String user,
+                                            String pass,
+                                            String zkNode) throws IOException {
+            ZookeeperClient client = new ZookeeperClientBuilder(zkCluster, user, pass, zkNode).build();
+            return client;
+        }
     }
 }

@@ -2,11 +2,11 @@ security:
 #password cf client will use when interacting with broker
   user.password: haselko_maselko
 broker.store:
-  node: ${zkbrk.space:zkbrk_space}
+  node: ${zkbrk.space:/test}
 broker.root:
   node: /platform
 zk:
-  cluster: ${zkcluster.url:}
+  cluster: ${zkcluster.url:localhost:2181}
 yarn:
   provided.params: ${hadoop.provided.params:{}}
   brokerusername: cf

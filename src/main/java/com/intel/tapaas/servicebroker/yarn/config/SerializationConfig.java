@@ -16,51 +16,41 @@
 
 package com.intel.tapaas.servicebroker.yarn.config;
 
-import com.intel.tapaas.cfbroker.store.hdfs.serialization.RepositoryDeserializer;
-import com.intel.tapaas.cfbroker.store.hdfs.serialization.RepositorySerializer;
+import com.intel.tapaas.cfbroker.store.serialization.JSONSerDeFactory;
+import com.intel.tapaas.cfbroker.store.serialization.RepositoryDeserializer;
+import com.intel.tapaas.cfbroker.store.serialization.RepositorySerializer;
+
 import org.cloudfoundry.community.servicebroker.model.CreateServiceInstanceBindingRequest;
 import org.cloudfoundry.community.servicebroker.model.ServiceInstance;
-import org.cloudfoundry.community.servicebroker.model.ServiceInstanceBinding;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
 public class SerializationConfig {
 
-    private static final ObjectMapper mapper = new ObjectMapper();
-
-    public <T> RepositorySerializer<T> getSerializer() {
-        return mapper::writeValueAsBytes;
-    }
-
-    public <T> RepositoryDeserializer<T> getDeserializer(Class<T> type) {
-        return t -> mapper.readValue(t, type);
-    }
-
     @Bean
     @Qualifier(Qualifiers.SERVICE_INSTANCE)
     public RepositorySerializer<ServiceInstance> getServiceInstanceSerializer() {
-        return getSerializer();
+        return JSONSerDeFactory.getInstance().getSerializer();
     }
 
     @Bean
     @Qualifier(Qualifiers.SERVICE_INSTANCE_BINDING)
     public RepositorySerializer<CreateServiceInstanceBindingRequest> getServiceInstanceBindingSerializer() {
-        return mapper::writeValueAsBytes;
+        return JSONSerDeFactory.getInstance().getSerializer();
     }
 
     @Bean
     @Qualifier(Qualifiers.SERVICE_INSTANCE)
     public RepositoryDeserializer<ServiceInstance> getServiceInstanceDeserializer() {
-        return getDeserializer(ServiceInstance.class);
+        return JSONSerDeFactory.getInstance().getDeserializer(ServiceInstance.class);
     }
 
     @Bean
     @Qualifier(Qualifiers.SERVICE_INSTANCE_BINDING)
     public RepositoryDeserializer<CreateServiceInstanceBindingRequest> getServiceInstanceBindingDeserializer() {
-        return t -> mapper.readValue(t, CreateServiceInstanceBindingRequest.class);
+        return JSONSerDeFactory.getInstance().getDeserializer(CreateServiceInstanceBindingRequest.class);
     }
 
 }
