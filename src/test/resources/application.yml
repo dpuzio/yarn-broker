@@ -2,17 +2,17 @@ security:
 #password cf client will use when interacting with broker
   user.password: haselko_maselko
 broker.store:
-  node: ${zkbrk.space:/test}
+  node: /zkbrk_space
 broker.root:
   node: /platform
 zk:
-  cluster: ${zkcluster.url:localhost:2181}
+  cluster:
 yarn:
   provided.params: ${hadoop.provided.params:{}}
   brokerusername: cf
   brokeruserpass: cf1
 cf:
   #name of service in cloud foundry catalog
-  servicename: ${cf.catalog.servicename:yarn}
+  servicename: yarn
   #id of service in cloud foundry catalog
-  serviceid: ${cf.catalog.serviceid:yarn}
+  serviceid: yarn

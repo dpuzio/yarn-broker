@@ -29,7 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 
-@Profile("!Cloud")
+@Profile("cloud")
 @org.springframework.context.annotation.Configuration
 public class HadoopConfig {
 

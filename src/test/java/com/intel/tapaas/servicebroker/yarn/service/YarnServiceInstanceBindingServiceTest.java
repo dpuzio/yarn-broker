@@ -59,21 +59,21 @@ public class YarnServiceInstanceBindingServiceTest {
 
     @Test
     public void testCreateServiceInstance() throws Exception {
-//        ServiceInstance instance = getServiceInstance("id");
-//        CreateServiceInstanceRequest request = new CreateServiceInstanceRequest(
-//                getServiceDefinition().getId(),
-//                instance.getPlanId(),
-//                instance.getOrganizationGuid(),
-//                instance.getSpaceGuid()).withServiceInstanceId(
-//                instance.getServiceInstanceId()).withServiceDefinition(getServiceDefinition());
-//
-//        CreateServiceInstanceBindingRequest bindReq = new CreateServiceInstanceBindingRequest(
-//                getServiceInstance("serviceId").getServiceDefinitionId(), "planId", "appGuid").
-//                withBindingId("bindingId").withServiceInstanceId("serviceId");
-//
-//        serviceBean.createServiceInstance(request);
-//
-//        bindingBean.createServiceInstanceBinding(bindReq);
+        ServiceInstance instance = getServiceInstance("id");
+        CreateServiceInstanceRequest request = new CreateServiceInstanceRequest(
+                getServiceDefinition().getId(),
+                instance.getPlanId(),
+                instance.getOrganizationGuid(),
+                instance.getSpaceGuid()).withServiceInstanceId(
+                instance.getServiceInstanceId()).withServiceDefinition(getServiceDefinition());
+
+        CreateServiceInstanceBindingRequest bindReq = new CreateServiceInstanceBindingRequest(
+                getServiceInstance("serviceId").getServiceDefinitionId(), "planId", "appGuid").
+                withBindingId("bindingId").withServiceInstanceId("serviceId");
+
+        serviceBean.createServiceInstance(request);
+
+        bindingBean.createServiceInstanceBinding(bindReq);
     }
 
 

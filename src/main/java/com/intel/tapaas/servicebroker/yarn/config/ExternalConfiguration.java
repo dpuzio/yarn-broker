@@ -20,9 +20,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
-@Profile("!Cloud")
 @Configuration
 public class ExternalConfiguration {
 

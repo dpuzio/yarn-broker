@@ -85,7 +85,7 @@ public class BrokerStoreConfig {
     }
 
     @Bean
-    @Profile("!Cloud")
+    @Profile("cloud")
     public ZookeeperClient getZKClient() throws  IOException {
         ZookeeperClient zkClient = helper.getZkClientInstance(config.getZkClusterHosts(),
                 config.getZkBrokerUserName(),
