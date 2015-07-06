@@ -2,7 +2,7 @@ security:
 #password cf client will use when interacting with broker
   user.password: haselko_maselko
 broker.store:
-  node: ${zkbrk.space:zkbrk_space}
+  node: ${yarnbrk.space:/yarnbrk_space}
 broker.root:
   node: /platform
 zk:
