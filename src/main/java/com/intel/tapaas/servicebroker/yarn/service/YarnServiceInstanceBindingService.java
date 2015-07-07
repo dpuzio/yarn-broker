@@ -56,9 +56,6 @@ public class YarnServiceInstanceBindingService extends ForwardingServiceInstance
     }
 
     private Map<String, Object> getCredentialsFor(String serviceInstanceId) {
-        Map<String, Object> credentialsCopy = new HashMap<>(credentials);
-        credentialsCopy.put("zk.node", configuration.getBrokerRootNode() + "/" + serviceInstanceId);
-        credentialsCopy.put("zk.cluster", configuration.getZkClusterHosts());
-        return credentialsCopy;
+        return new HashMap<>(credentials);
     }
 }

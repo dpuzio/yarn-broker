@@ -46,8 +46,6 @@ public class ConfigurationTest {
                         conf.getZkBrokerUserName(),
                         conf.getZkBrokerUserPass());
         YarnTestUtils.createDir(credendials, conf.getBrokerStoreNode());
-        YarnTestUtils.createDir(credendials, conf.getBrokerRootNode());
-
         return zkServer;
     }
 

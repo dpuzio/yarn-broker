@@ -6,7 +6,7 @@ broker.store:
 broker.root:
   node: /platform
 zk:
-  cluster:
+  cluster: ${zkcluster.url:}
 yarn:
   provided.params: ${hadoop.provided.params:{}}
   brokerusername: cf
@@ -16,3 +16,6 @@ cf:
   servicename: yarn
   #id of service in cloud foundry catalog
   serviceid: yarn
+kerberos:
+  kdc: ${krb.kdc.host:}
+  realm: ${krb.realm:}

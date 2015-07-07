@@ -40,10 +40,6 @@ public class ExternalConfiguration {
     @NotNull
     private String brokerStoreNode;
 
-    @Value("${broker.root.node}")
-    @NotNull
-    private String brokerRootNode;
-
     @Value("${yarn.brokerusername}")
     @NotNull
     private String zkBrokerUserName;
@@ -53,7 +49,16 @@ public class ExternalConfiguration {
     private String zkBrokerUserPass;
 
     @Value("${yarn.provided.params}")
-    private String hadoopProvidedParams;
+    private String yarnProvidedParams;
+
+    @Value("${kerberos.kdc}")
+    @NotNull
+    private String kerberosKdc;
+
+    @Value("${kerberos.realm}")
+    @NotNull
+    private String kerberosRealm;
+
 
     public String getCfServiceName() {
         return cfServiceName;
@@ -71,20 +76,12 @@ public class ExternalConfiguration {
         this.cfServiceId = cfServiceId;
     }
 
-    public String getHadoopProvidedParams() {
-        return hadoopProvidedParams;
+    public String getYarnProvidedParams() {
+        return yarnProvidedParams;
     }
 
-    public void setHadoopProvidedParams(String hadoopProvidedParams) {
-        this.hadoopProvidedParams = hadoopProvidedParams;
-    }
-
-    public String getZkClusterHosts() {
-        return zkClusterHosts;
-    }
-
-    public void setZkClusterHosts(String zkClusterHosts) {
-        this.zkClusterHosts = zkClusterHosts;
+    public void setYarnProvidedParams(String yarnProvidedParams) {
+        this.yarnProvidedParams = yarnProvidedParams;
     }
 
     public String getZkBrokerUserName() {
@@ -111,12 +108,28 @@ public class ExternalConfiguration {
         this.brokerStoreNode = brokerStoreNode;
     }
 
-    public String getBrokerRootNode() {
-        return brokerRootNode;
+
+    public String getKerberosKdc() {
+        return kerberosKdc;
     }
 
-    public void setBrokerRootNode(String brokerRootNode) {
-        this.brokerRootNode = brokerRootNode;
+    public void setKerberosKdc(String kerberosKdc) {
+        this.kerberosKdc = kerberosKdc;
     }
 
+    public String getKerberosRealm() {
+        return kerberosRealm;
+    }
+
+    public void setKerberosRealm(String kerberosRealm) {
+        this.kerberosRealm = kerberosRealm;
+    }
+
+    public String getZkClusterHosts() {
+        return zkClusterHosts;
+    }
+
+    public void setZkClusterHosts(String zkClusterHosts) {
+        this.zkClusterHosts = zkClusterHosts;
+    }
 }

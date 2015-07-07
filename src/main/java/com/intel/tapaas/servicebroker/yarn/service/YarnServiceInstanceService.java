@@ -28,13 +28,5 @@ public class YarnServiceInstanceService extends ForwardingServiceInstanceService
     public YarnServiceInstanceService(ServiceInstanceService delegate) {
         super(delegate);
     }
-
-    @Override
-    public ServiceInstance createServiceInstance (CreateServiceInstanceRequest request)
-            throws ServiceBrokerException, ServiceInstanceExistsException {
-        ServiceInstance serviceInstance = super.createServiceInstance(request);
-
-        return serviceInstance;
-    }
-
+    
 }

@@ -55,14 +55,14 @@ public class ServiceInstanceBindingServiceConfig {
     private Map<String, Object> getCredentials() throws IOException {
 
         Optional<Map<String, String>> hadoopConf =
-                HadoopConfigurationHelper.getHadoopConfFromJson(configuration.getHadoopProvidedParams());
+                HadoopConfigurationHelper.getHadoopConfFromJson(configuration.getYarnProvidedParams());
 
         return ImmutableMap.of(
                 "kerberos", ImmutableMap.of(
-                        "kdc", "",
-                        "krealm", ""),
-                HadoopConfigurationHelper.TAPAAS_HADOOP_CONFIG_NODE_NAME,
-                ImmutableMap.copyOf(hadoopConf.orElse(Collections.emptyMap()))
-        );
+                        "kerberos", ImmutableMap.of("kdc", configuration.getKerberosKdc(),
+                        "krealm", configuration.getKerberosRealm()),
+                        HadoopConfigurationHelper.TAPAAS_HADOOP_CONFIG_NODE_NAME,
+                        ImmutableMap.copyOf(hadoopConf.orElse(Collections.emptyMap()))
+                ));
     }
 }

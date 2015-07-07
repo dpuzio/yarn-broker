@@ -40,7 +40,7 @@ public class HadoopConfig {
     public Configuration getHadoopConfiguration() throws LoginException, IOException {
         Configuration hadoopConf = new Configuration(false);
         Optional<Map<String, String>> hadoopParams =
-                HadoopConfigurationHelper.getHadoopConfFromJson(configuration.getHadoopProvidedParams());
+                HadoopConfigurationHelper.getHadoopConfFromJson(configuration.getYarnProvidedParams());
         HadoopConfigurationHelper.mergeConfiguration(hadoopConf, hadoopParams.get());
         return hadoopConf;
     }
