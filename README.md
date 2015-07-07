@@ -42,6 +42,7 @@ When zookeeper requires kerberos authentication set:
 ```
 cf se yarn-broker KRB_KDC_HOST ip-10-10-9-198.us-west-2.compute.internal
 cf se yarn-broker KRB_REALM US-WEST-2.COMPUTE.INTERNAL
+```
 
 ## Injection of Yarn configuration
 YARN configuration must be set via HADOOP_PROVIDED_PARAMS environment variable. Description of this process is this same as in HDFS broker case ( https://github.com/intel-data/hdfs-broker/ ).
