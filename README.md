@@ -3,7 +3,7 @@
 Cloud foundry broker for YARN.
 
 # How to use it?
-To use zookeeper-broker, you need to build it from sources configure, deploy, create instance and bind it to your app. Follow steps described below.
+To use yarn-broker, you need to build it from sources configure, deploy, create instance and bind it to your app. Follow steps described below.
 
 ## Build
 Run command for compile and package.:
