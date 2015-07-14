@@ -17,10 +17,6 @@
 package com.intel.tapaas.servicebroker.yarn.service;
 
 import com.intel.tapaas.cfbroker.store.impl.ForwardingServiceInstanceServiceStore;
-import org.cloudfoundry.community.servicebroker.exception.ServiceBrokerException;
-import org.cloudfoundry.community.servicebroker.exception.ServiceInstanceExistsException;
-import org.cloudfoundry.community.servicebroker.model.CreateServiceInstanceRequest;
-import org.cloudfoundry.community.servicebroker.model.ServiceInstance;
 import org.cloudfoundry.community.servicebroker.service.ServiceInstanceService;
 
 public class YarnServiceInstanceService extends ForwardingServiceInstanceServiceStore {

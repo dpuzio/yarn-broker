@@ -60,9 +60,9 @@ public class ServiceInstanceBindingServiceConfig {
         return ImmutableMap.of(
                 "kerberos", ImmutableMap.of(
                         "kerberos", ImmutableMap.of("kdc", configuration.getKerberosKdc(),
-                        "krealm", configuration.getKerberosRealm()),
+                        "krealm", configuration.getKerberosRealm())),
                         HadoopConfigurationHelper.TAPAAS_HADOOP_CONFIG_NODE_NAME,
                         ImmutableMap.copyOf(hadoopConf.orElse(Collections.emptyMap()))
-                ));
+                );
     }
 }

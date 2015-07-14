@@ -16,75 +16,57 @@
 
 package com.intel.tapaas.servicebroker.yarn.service;
 
-import com.intel.tapaas.servicebroker.yarn.config.Application;
+import com.google.common.collect.ImmutableMap;
+import com.intel.tapaas.hadoop.HadoopConfigurationHelper;
 import com.intel.tapaas.servicebroker.yarn.config.ExternalConfiguration;
-import com.intel.tapaas.servicebroker.yarn.service.utils.YarnTestUtils;
 
-import org.apache.curator.test.TestingServer;
-import org.cloudfoundry.community.servicebroker.model.CreateServiceInstanceBindingRequest;
-import org.cloudfoundry.community.servicebroker.model.CreateServiceInstanceRequest;
-import org.cloudfoundry.community.servicebroker.model.ServiceDefinition;
-import org.cloudfoundry.community.servicebroker.model.ServiceInstance;
+import org.cloudfoundry.community.servicebroker.model.*;
 import org.cloudfoundry.community.servicebroker.service.ServiceInstanceBindingService;
-import org.cloudfoundry.community.servicebroker.service.ServiceInstanceService;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Collections;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {Application.class, ConfigurationTest.class})
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-@IntegrationTest
-@ActiveProfiles("test")
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
+
+@RunWith(MockitoJUnitRunner.class)
 public class YarnServiceInstanceBindingServiceTest {
 
-    @Autowired
-    private TestingServer zkServer;
+    @Mock
+    private ExternalConfiguration configuration;
 
-    @Autowired
-    private ExternalConfiguration conf;
+    @Mock
+    private ServiceInstanceBindingService instanceBindingService;
 
-    @Autowired
-    private ServiceInstanceService serviceBean;
+    private YarnServiceInstanceBindingService service;
 
-    @Autowired
-    private ServiceInstanceBindingService bindingBean;
+    @Before
+    public void init() {
+        service = new YarnServiceInstanceBindingService(instanceBindingService, ImmutableMap
+                .of(HadoopConfigurationHelper.TAPAAS_HADOOP_CONFIG_NODE_NAME, "{}"), configuration);
+    }
 
     @Test
     public void testCreateServiceInstance() throws Exception {
-        ServiceInstance instance = getServiceInstance("id");
-        CreateServiceInstanceRequest request = new CreateServiceInstanceRequest(
-                getServiceDefinition().getId(),
-                instance.getPlanId(),
-                instance.getOrganizationGuid(),
-                instance.getSpaceGuid()).withServiceInstanceId(
-                instance.getServiceInstanceId()).withServiceDefinition(getServiceDefinition());
-
-        CreateServiceInstanceBindingRequest bindReq = new CreateServiceInstanceBindingRequest(
+        CreateServiceInstanceBindingRequest request = new CreateServiceInstanceBindingRequest(
                 getServiceInstance("serviceId").getServiceDefinitionId(), "planId", "appGuid").
                 withBindingId("bindingId").withServiceInstanceId("serviceId");
+        when(instanceBindingService.createServiceInstanceBinding(request)).thenReturn(getServiceInstanceBinding("id"));
+        ServiceInstanceBinding instance = service.createServiceInstanceBinding(request);
 
-        serviceBean.createServiceInstance(request);
-
-        bindingBean.createServiceInstanceBinding(bindReq);
+        assertThat(instance.getCredentials().get(HadoopConfigurationHelper.TAPAAS_HADOOP_CONFIG_NODE_NAME), equalTo("{}"));
     }
 
+    private ServiceInstanceBinding getServiceInstanceBinding(String id) {
+        return new ServiceInstanceBinding(id, "serviceId", Collections.emptyMap(), null, "guid");
+    }
 
     private ServiceInstance getServiceInstance(String id) {
-        return new ServiceInstance(
-                new CreateServiceInstanceRequest(getServiceDefinition().getId(), "planId", "organizationGuid", "spaceGuid")
-                        .withServiceInstanceId(id));
-    }
-
-
-    private ServiceDefinition getServiceDefinition() {
-        return new ServiceDefinition("def", "name", "desc", true, Collections.emptyList());
+        return new ServiceInstance(new CreateServiceInstanceRequest(id, "planId", "organizationGuid", "spaceGuid"));
     }
 }

@@ -19,7 +19,7 @@ package com.intel.tapaas.servicebroker.yarn.service;
 import com.intel.tapaas.cfbroker.store.zookeeper.service.ZookeeperClient;
 import com.intel.tapaas.cfbroker.store.zookeeper.service.ZookeeperClientBuilder;
 import com.intel.tapaas.servicebroker.yarn.config.ExternalConfiguration;
-import com.intel.tapaas.servicebroker.yarn.service.utils.YarnTestUtils;
+import com.intel.tapaas.servicebroker.yarn.utils.YarnTestUtils;
 
 import org.apache.curator.test.TestingServer;
 import org.springframework.beans.factory.annotation.Autowired;
