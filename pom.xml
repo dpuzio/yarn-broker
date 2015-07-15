@@ -5,7 +5,7 @@
     <scm>
         <connection>scm:git:git@yarn-broker:intel-data/yarn-broker.git</connection>
     </scm>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
 
     <parent>
         <groupId>com.intel.taproot</groupId>
