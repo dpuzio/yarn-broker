@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.intel.tapaas.servicebroker.yarn.config;
+package com.intel.taproot.servicebroker.yarn.config;
 
 import com.google.common.collect.Lists;
 import org.cloudfoundry.community.servicebroker.model.Catalog;

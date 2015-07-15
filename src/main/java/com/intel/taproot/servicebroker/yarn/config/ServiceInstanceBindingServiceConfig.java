@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.intel.tapaas.servicebroker.yarn.config;
+package com.intel.taproot.servicebroker.yarn.config;
 
 import com.google.common.collect.ImmutableMap;
-import com.intel.tapaas.cfbroker.store.api.BrokerStore;
-import com.intel.tapaas.cfbroker.store.impl.ServiceInstanceBindingServiceStore;
-import com.intel.tapaas.hadoop.HadoopConfigurationHelper;
-import com.intel.tapaas.servicebroker.yarn.service.YarnServiceInstanceBindingService;
+import com.intel.taproot.cfbroker.store.api.BrokerStore;
+import com.intel.taproot.cfbroker.store.impl.ServiceInstanceBindingServiceStore;
+import com.intel.taproot.hadoop.HadoopConfigurationHelper;
+import com.intel.taproot.servicebroker.yarn.service.YarnServiceInstanceBindingService;
 import org.cloudfoundry.community.servicebroker.model.CreateServiceInstanceBindingRequest;
 import org.cloudfoundry.community.servicebroker.service.ServiceInstanceBindingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,9 +60,9 @@ public class ServiceInstanceBindingServiceConfig {
         return ImmutableMap.of(
                 "kerberos", ImmutableMap.of(
                         "kerberos", ImmutableMap.of("kdc", configuration.getKerberosKdc(),
-                        "krealm", configuration.getKerberosRealm())),
-                        HadoopConfigurationHelper.TAPAAS_HADOOP_CONFIG_NODE_NAME,
+                        "krealm", configuration.getKerberosRealm()),
+                        HadoopConfigurationHelper.TAPROOT_HADOOP_CONFIG_NODE_NAME,
                         ImmutableMap.copyOf(hadoopConf.orElse(Collections.emptyMap()))
-                );
+                ));
     }
 }

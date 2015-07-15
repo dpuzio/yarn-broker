@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.intel.tapaas.servicebroker.yarn.utils;
+package com.intel.taproot.servicebroker.yarn.service.utils;
 
 import com.google.common.collect.ImmutableList;
 
@@ -24,15 +24,18 @@ import org.apache.curator.retry.RetryOneTime;
 import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.data.ACL;
 import org.apache.zookeeper.data.Id;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.zookeeper.data.Stat;
 import org.springframework.security.crypto.codec.Base64;
 
 import java.security.MessageDigest;
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 public class YarnTestUtils {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ZookeeperCredentials.class);
 
     private YarnTestUtils() {
     }
@@ -61,8 +64,6 @@ public class YarnTestUtils {
 
     public static void createDir(ZookeeperCredentials credentials, String path) throws Exception {
 
-        LOGGER.info("Attempt to create znode: " + path);
-
         CuratorFramework tempClient = getNewTempClient(credentials.getConnectionString());
 
         MessageDigest md = MessageDigest.getInstance("SHA-1");
@@ -76,8 +77,78 @@ public class YarnTestUtils {
 
         tempClient.create()
                 .creatingParentsIfNeeded()
-                        //.withACL(acl)
+                .withACL(acl)
                 .forPath(path);
+
+        tempClient.close();
+    }
+
+    public static void deleteDir(ZookeeperCredentials credentials, String path) throws Exception {
+
+        CuratorFramework tempClient = getNewTempClient(credentials);
+
+        tempClient.delete()
+                .deletingChildrenIfNeeded()
+                .forPath(path);
+
+        tempClient.close();
+    }
+
+    public static void saveObject(ZookeeperCredentials credentials, String path, byte[] bytes)
+            throws Exception {
+
+        CuratorFramework tempClient = getNewTempClient(credentials);
+
+        tempClient.create()
+                .creatingParentsIfNeeded()
+                .forPath(path, bytes);
+
+        tempClient.close();
+    }
+
+    public static void saveChildrenZNodes(ZookeeperCredentials credentials, String path,
+                                          List<String> childrenToCreate) throws Exception {
+
+        CuratorFramework tempClient = getNewTempClient(credentials);
+
+        for (String child : childrenToCreate) {
+            tempClient.create()
+                    .creatingParentsIfNeeded()
+                    .forPath(path + "/" + child);
+        }
+
+        tempClient.close();
+    }
+
+    public static void assertZNodeEquals(ZookeeperCredentials credentials, String path,
+                                         byte[] expected) throws Exception {
+
+        CuratorFramework tempClient = getNewTempClient(credentials);
+
+        byte[] actual = tempClient.getData().forPath(path);
+        assertThat(expected, equalTo(actual));
+
+        tempClient.close();
+    }
+
+    public static void assertZNodesAclEquals(ZookeeperCredentials credentials, String pathA,
+                                             String pathB) throws Exception {
+
+        CuratorFramework tempClient = getNewTempClient(credentials);
+
+        final List<ACL> aclA = tempClient.getACL().forPath(pathA);
+        final List<ACL> aclB = tempClient.getACL().forPath(pathB);
+
+        assertThat(aclA, equalTo(aclB));
+    }
+
+    public static void assertZNodeNotExist(ZookeeperCredentials credentials, String path)
+            throws Exception {
+
+        CuratorFramework tempClient = getNewTempClient(credentials);
+
+        Stat stat = tempClient.checkExists().forPath(path);
+        assertThat(stat, is(nullValue()));
 
         tempClient.close();
     }

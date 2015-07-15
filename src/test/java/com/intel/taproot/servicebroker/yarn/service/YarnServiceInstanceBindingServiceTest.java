@@ -14,11 +14,15 @@
  * limitations under the License.
  */
 
-package com.intel.tapaas.servicebroker.yarn.service;
+package com.intel.taproot.servicebroker.yarn.service;
 
 import com.google.common.collect.ImmutableMap;
-import com.intel.tapaas.hadoop.HadoopConfigurationHelper;
-import com.intel.tapaas.servicebroker.yarn.config.ExternalConfiguration;
+import com.intel.taproot.hadoop.HadoopConfigurationHelper;
+import com.intel.taproot.servicebroker.yarn.config.Application;
+import com.intel.taproot.servicebroker.yarn.config.ExternalConfiguration;
+import com.intel.taproot.servicebroker.yarn.service.utils.YarnTestUtils;
+import com.intel.taproot.servicebroker.yarn.config.Application;
+import com.intel.taproot.servicebroker.yarn.config.ExternalConfiguration;
 
 import org.cloudfoundry.community.servicebroker.model.*;
 import org.cloudfoundry.community.servicebroker.service.ServiceInstanceBindingService;
@@ -48,7 +52,7 @@ public class YarnServiceInstanceBindingServiceTest {
     @Before
     public void init() {
         service = new YarnServiceInstanceBindingService(instanceBindingService, ImmutableMap
-                .of(HadoopConfigurationHelper.TAPAAS_HADOOP_CONFIG_NODE_NAME, "{}"), configuration);
+                .of(HadoopConfigurationHelper.TAPROOT_HADOOP_CONFIG_NODE_NAME, "{}"), configuration);
     }
 
     @Test
@@ -59,7 +63,7 @@ public class YarnServiceInstanceBindingServiceTest {
         when(instanceBindingService.createServiceInstanceBinding(request)).thenReturn(getServiceInstanceBinding("id"));
         ServiceInstanceBinding instance = service.createServiceInstanceBinding(request);
 
-        assertThat(instance.getCredentials().get(HadoopConfigurationHelper.TAPAAS_HADOOP_CONFIG_NODE_NAME), equalTo("{}"));
+        assertThat(instance.getCredentials().get(HadoopConfigurationHelper.TAPROOT_HADOOP_CONFIG_NODE_NAME), equalTo("{}"));
     }
 
     private ServiceInstanceBinding getServiceInstanceBinding(String id) {

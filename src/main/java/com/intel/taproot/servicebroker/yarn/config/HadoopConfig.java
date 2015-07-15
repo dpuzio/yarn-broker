@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.intel.tapaas.servicebroker.yarn.config;
+package com.intel.taproot.servicebroker.yarn.config;
 
-import com.intel.tapaas.hadoop.HadoopConfigurationHelper;
+import com.intel.taproot.hadoop.HadoopConfigurationHelper;
 
 import java.io.IOException;
 import java.util.Map;

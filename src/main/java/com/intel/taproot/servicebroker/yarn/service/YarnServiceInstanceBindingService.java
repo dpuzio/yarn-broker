@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.intel.tapaas.servicebroker.yarn.service;
+package com.intel.taproot.servicebroker.yarn.service;
 
-import com.intel.tapaas.cfbroker.store.impl.ForwardingServiceInstanceBindingServiceStore;
-import com.intel.tapaas.servicebroker.yarn.config.ExternalConfiguration;
+import com.intel.taproot.cfbroker.store.impl.ForwardingServiceInstanceBindingServiceStore;
+import com.intel.taproot.servicebroker.yarn.config.ExternalConfiguration;
 import org.cloudfoundry.community.servicebroker.exception.ServiceBrokerException;
 import org.cloudfoundry.community.servicebroker.exception.ServiceInstanceBindingExistsException;
 import org.cloudfoundry.community.servicebroker.model.CreateServiceInstanceBindingRequest;

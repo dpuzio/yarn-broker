@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.intel.tapaas.servicebroker.yarn.config;
+package com.intel.taproot.servicebroker.yarn.config;
 
 import javax.validation.constraints.NotNull;
 

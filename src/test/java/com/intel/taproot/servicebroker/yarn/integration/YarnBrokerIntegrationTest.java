@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.intel.tapaas.servicebroker.yarn.integration;
+package com.intel.taproot.servicebroker.yarn.integration;
 
-import com.intel.tapaas.servicebroker.yarn.config.Application;
-import com.intel.tapaas.servicebroker.yarn.config.ExternalConfiguration;
-import com.intel.tapaas.servicebroker.yarn.service.ConfigurationTest;
-import com.intel.tapaas.servicebroker.yarn.service.YarnServiceInstanceBindingService;
-import com.intel.tapaas.servicebroker.yarn.service.YarnServiceInstanceService;
+import com.intel.taproot.servicebroker.yarn.config.Application;
+import com.intel.taproot.servicebroker.yarn.config.ExternalConfiguration;
+import com.intel.taproot.servicebroker.yarn.service.ConfigurationTest;
+import com.intel.taproot.servicebroker.yarn.service.YarnServiceInstanceBindingService;
+import com.intel.taproot.servicebroker.yarn.service.YarnServiceInstanceService;
 import org.cloudfoundry.community.servicebroker.model.*;
 import org.junit.Rule;
 import org.junit.Test;
@@ -61,14 +61,6 @@ public class YarnBrokerIntegrationTest {
         ServiceInstance instance = instanceService.getServiceInstance(request.getServiceInstanceId());
         assertThat(instance.getServiceInstanceId(), equalTo("instanceId"));
     }
-
-//    @Test
-//    public void testUpdateServiceInstance_throwException_shouldNotUpdateInstance() throws Exception {
-//        ServiceInstance instance = instanceService.createServiceInstance(getCreateInstanceRequest("instanceId2"));
-//        instanceService.updateServiceInstance(
-//                new UpdateServiceInstanceRequest(instance.getPlanId()).withInstanceId(instance.getServiceInstanceId()));
-//        thrown.expect(ServiceInstanceUpdateNotSupportedException.class);
-//    }
 
     @Test
     public void testDeleteServiceInstance_success_shouldReturnRemovedInstance() throws Exception {

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.intel.tapaas.servicebroker.yarn.config;
+package com.intel.taproot.servicebroker.yarn.config;
 
-import com.intel.tapaas.cfbroker.store.serialization.JSONSerDeFactory;
-import com.intel.tapaas.cfbroker.store.serialization.RepositoryDeserializer;
-import com.intel.tapaas.cfbroker.store.serialization.RepositorySerializer;
+import com.intel.taproot.cfbroker.store.serialization.JSONSerDeFactory;
+import com.intel.taproot.cfbroker.store.serialization.RepositoryDeserializer;
+import com.intel.taproot.cfbroker.store.serialization.RepositorySerializer;
 
 import org.cloudfoundry.community.servicebroker.model.CreateServiceInstanceBindingRequest;
 import org.cloudfoundry.community.servicebroker.model.ServiceInstance;

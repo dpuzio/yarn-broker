@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package com.intel.tapaas.servicebroker.yarn.config;
+package com.intel.taproot.servicebroker.yarn.config;
 
-import com.intel.tapaas.cfbroker.store.api.BrokerStore;
-import com.intel.tapaas.cfbroker.store.impl.ServiceInstanceServiceStore;
-import com.intel.tapaas.servicebroker.yarn.service.YarnServiceInstanceService;
+import com.intel.taproot.cfbroker.store.api.BrokerStore;
+import com.intel.taproot.cfbroker.store.impl.ServiceInstanceServiceStore;
+import com.intel.taproot.servicebroker.yarn.service.YarnServiceInstanceService;
 import org.cloudfoundry.community.servicebroker.model.ServiceInstance;
 import org.cloudfoundry.community.servicebroker.service.ServiceInstanceService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
