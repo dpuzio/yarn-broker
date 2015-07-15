@@ -4,6 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>yarn-broker</artifactId>
+    <scm>
+        <connection>scm:git:git@yarn-broker:intel-data/yarn-broker.git</connection>
+    </scm>
     <version>1.0-SNAPSHOT</version>
 
     <parent>
@@ -108,7 +111,7 @@
         <dependency>
             <groupId>com.intel.taproot</groupId>
             <artifactId>hadoop-utils</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
@@ -123,12 +126,12 @@
         <dependency>
             <groupId>com.intel.taproot.servicebroker.repository</groupId>
             <artifactId>broker-store-commons</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>com.intel.taproot.servicebroker.repository</groupId>
             <artifactId>zookeeper-broker-store</artifactId>
-            <version>1.1-SNAPSHOT</version>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
