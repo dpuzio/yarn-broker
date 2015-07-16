@@ -3,8 +3,6 @@ security:
   user.password: haselko_maselko
 broker.store:
   node: ${yarnbrk.space:/yarnbrk_space}
-broker.root:
-  node: /platform
 zk:
   cluster: ${zkcluster.url:}
 yarn:
