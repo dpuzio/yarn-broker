@@ -1,6 +1,6 @@
 security:
 #password cf client will use when interacting with broker
-  user.password: haselko_maselko
+  user.password: ${user.password}
 broker.store:
   node: ${yarnbrk.space:/yarnbrk_space}
 zk:

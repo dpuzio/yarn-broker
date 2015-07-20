@@ -23,6 +23,7 @@ For strict separation of config from code (twelve-factor principle), configurati
 
 Broker configuration params list (environment properties):
 * obligatory :
+  * USER_PASSWORD - password to interact with service broker
   * ZKCLUSTER_URL - comma separated ip addresses of zookeeper nodes
 * obligatory only when zookeeper requires kerberos authentication:
   * KRB_KDC_HOST - kerberos kdc host address
@@ -57,7 +58,7 @@ cf start yarn-broker
 
 Use cf client :
 ```
-cf create-service-broker yarn-broker user haselko_maselko https://yarn-broker.gotapaas.com
+cf create-service-broker yarn-broker <user> <password> https://yarn-broker.<platform_domain>
 cf enable-service-access yarn
 cf cs yarn shared yarn-instance
 ```

@@ -1,6 +1,6 @@
 security:
 #password cf client will use when interacting with broker
-  user.password: haselko_maselko
+  user.password: fake
 broker.store:
   node: /zkbrk_space
 zk:
