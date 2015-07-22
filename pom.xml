@@ -109,7 +109,7 @@
         <dependency>
             <groupId>com.intel.taproot</groupId>
             <artifactId>hadoop-utils</artifactId>
-            <version>1.0</version>
+            <version>1.2</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>

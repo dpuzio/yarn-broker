@@ -16,7 +16,6 @@
 
 package com.intel.taproot.servicebroker.yarn.service;
 
-import com.intel.taproot.servicebroker.yarn.service.YarnServiceInstanceService;
 import org.cloudfoundry.community.servicebroker.model.CreateServiceInstanceRequest;
 import org.cloudfoundry.community.servicebroker.model.ServiceDefinition;
 import org.cloudfoundry.community.servicebroker.model.ServiceInstance;

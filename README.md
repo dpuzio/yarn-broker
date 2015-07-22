@@ -22,9 +22,9 @@ cf push yarn-broker -p target/yarn-broker-*.jar -m 512M -i 1 --no-start
 For strict separation of config from code (twelve-factor principle), configuration must be placed in environment variables.
 
 Broker configuration params list (environment properties):
+
 * obligatory :
   * USER_PASSWORD - password to interact with service broker
-  * ZKCLUSTER_URL - comma separated ip addresses of zookeeper nodes
 * obligatory only when zookeeper requires kerberos authentication:
   * KRB_KDC_HOST - kerberos kdc host address
   * KRB_REALM - kerberos realm name
@@ -34,11 +34,6 @@ Broker configuration params list (environment properties):
   * CF_CATALOG_SERVICEID - service id in cloud foundry catalog (default: yarn)
   * YARNBRK_SPACE: - (default: /yarnbrk_space)
 
-For instance.:
-```
-cf se yarn-broker ZKCLUSTER_URL 10.10.9.145:2181,10.10.9.146:2181
-```
-
 When zookeeper requires kerberos authentication set:
 ```
 cf se yarn-broker KRB_KDC_HOST ip-10-10-9-198.us-west-2.compute.internal
@@ -47,6 +42,12 @@ cf se yarn-broker KRB_REALM US-WEST-2.COMPUTE.INTERNAL
 
 ## Injection of Yarn configuration
 YARN configuration must be set via HADOOP_PROVIDED_PARAMS environment variable. Description of this process is this same as in HDFS broker case ( https://github.com/intel-data/hdfs-broker/ ).
+
+## Zookeeper configuration
+Broker instance should be bind with zookeeper broker instance to get zookeeper configuration.
+```
+cf bs <app> <zookeeper-instance>
+```
 
 ## Start service broker application
 

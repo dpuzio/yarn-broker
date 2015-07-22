@@ -3,8 +3,6 @@ security:
   user.password: fake
 broker.store:
   node: /zkbrk_space
-zk:
-  cluster: ${zkcluster.url:}
 yarn:
   provided.params: ${hadoop.provided.params:{}}
   brokerusername: cf

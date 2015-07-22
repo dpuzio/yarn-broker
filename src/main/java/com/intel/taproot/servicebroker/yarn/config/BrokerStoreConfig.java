@@ -22,6 +22,9 @@ import com.intel.taproot.cfbroker.store.serialization.RepositorySerializer;
 import com.intel.taproot.cfbroker.store.zookeeper.service.ZookeeperClient;
 import com.intel.taproot.cfbroker.store.zookeeper.service.ZookeeperClientBuilder;
 import com.intel.taproot.cfbroker.store.zookeeper.service.ZookeeperStore;
+import com.intel.taproot.hadoop.config.ConfigurationHelper;
+import com.intel.taproot.hadoop.config.ConfigurationHelperImpl;
+import com.intel.taproot.hadoop.config.PropertyLocator;
 import org.cloudfoundry.community.servicebroker.model.CreateServiceInstanceBindingRequest;
 import org.cloudfoundry.community.servicebroker.model.ServiceInstance;
 
@@ -87,12 +90,18 @@ public class BrokerStoreConfig {
     @Bean
     @Profile("cloud")
     public ZookeeperClient getZKClient() throws  IOException {
-        ZookeeperClient zkClient = helper.getZkClientInstance(config.getZkClusterHosts(),
+        ZookeeperClient zkClient = helper.getZkClientInstance(getZookeperUriFromCredentials(),
                 config.getZkBrokerUserName(),
                 config.getZkBrokerUserPass(),
                 config.getBrokerStoreNode());
         zkClient.init();
         return zkClient;
+    }
+
+    private String getZookeperUriFromCredentials() throws IOException{
+        ConfigurationHelper confHelper = ConfigurationHelperImpl.getInstance();
+        return confHelper.getPropertyFromEnv(PropertyLocator.ZOOKEPER_URI)
+                .orElseThrow(() -> new IllegalStateException("ZookepeerUri not found in VCAP_SERVICES"));
     }
 
     final static class FactoryHelper {

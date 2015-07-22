@@ -18,10 +18,6 @@ package com.intel.taproot.servicebroker.yarn.service;
 
 import com.google.common.collect.ImmutableMap;
 import com.intel.taproot.hadoop.HadoopConfigurationHelper;
-import com.intel.taproot.servicebroker.yarn.config.Application;
-import com.intel.taproot.servicebroker.yarn.config.ExternalConfiguration;
-import com.intel.taproot.servicebroker.yarn.service.utils.YarnTestUtils;
-import com.intel.taproot.servicebroker.yarn.config.Application;
 import com.intel.taproot.servicebroker.yarn.config.ExternalConfiguration;
 
 import org.cloudfoundry.community.servicebroker.model.*;

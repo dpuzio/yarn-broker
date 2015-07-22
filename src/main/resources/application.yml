@@ -3,8 +3,6 @@ security:
   user.password: ${user.password}
 broker.store:
   node: ${yarnbrk.space:/yarnbrk_space}
-zk:
-  cluster: ${zkcluster.url:}
 yarn:
   provided.params: ${hadoop.provided.params:{}}
   brokerusername: cf

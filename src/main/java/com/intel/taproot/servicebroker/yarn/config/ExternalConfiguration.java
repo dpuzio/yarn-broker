@@ -24,10 +24,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ExternalConfiguration {
 
-    @Value("${zk.cluster}")
-    @NotNull
-    private String zkClusterHosts;
-
     @Value("${cf.serviceid}")
     @NotNull
     private String cfServiceId;
@@ -58,7 +54,6 @@ public class ExternalConfiguration {
     @Value("${kerberos.realm}")
     @NotNull
     private String kerberosRealm;
-
 
     public String getCfServiceName() {
         return cfServiceName;
@@ -108,7 +103,6 @@ public class ExternalConfiguration {
         this.brokerStoreNode = brokerStoreNode;
     }
 
-
     public String getKerberosKdc() {
         return kerberosKdc;
     }
@@ -125,11 +119,4 @@ public class ExternalConfiguration {
         this.kerberosRealm = kerberosRealm;
     }
 
-    public String getZkClusterHosts() {
-        return zkClusterHosts;
-    }
-
-    public void setZkClusterHosts(String zkClusterHosts) {
-        this.zkClusterHosts = zkClusterHosts;
-    }
 }
