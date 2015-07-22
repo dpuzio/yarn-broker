@@ -24,6 +24,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ExternalConfiguration {
 
+    @Value("${metadata.imageUrl}")
+    @NotNull
+    private String imageUrl;
+
     @Value("${cf.serviceid}")
     @NotNull
     private String cfServiceId;
@@ -54,6 +58,10 @@ public class ExternalConfiguration {
     @Value("${kerberos.realm}")
     @NotNull
     private String kerberosRealm;
+
+    @Value("${cf.baseId}")
+    @NotNull
+    private String cfBaseId;
 
     public String getCfServiceName() {
         return cfServiceName;
@@ -119,4 +127,19 @@ public class ExternalConfiguration {
         this.kerberosRealm = kerberosRealm;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getCfBaseId() {
+        return cfBaseId;
+    }
+
+    public void setCfBaseId(String cfBaseId) {
+        this.cfBaseId = cfBaseId;
+    }
 }

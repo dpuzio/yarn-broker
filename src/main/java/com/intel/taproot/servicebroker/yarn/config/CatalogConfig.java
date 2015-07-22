@@ -24,9 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Configuration
 public class CatalogConfig {
@@ -36,17 +34,25 @@ public class CatalogConfig {
 
     private String SYSLOG_DRAIN = "syslog_drain";
 
+    private static final String IMAGE_URL = "imageUrl";
+
     @Bean
     public Catalog catalog() {
-
         return new Catalog(Arrays.asList(new ServiceDefinition(configuration.getCfServiceId(), configuration.getCfServiceName(),
-                "A simple yarn broker", true, true, getSharedPlans(), null, null, Arrays.asList(SYSLOG_DRAIN), null)));
+                "A simple yarn broker", true, true, getSharedPlans(), null, getServiceDefinitionMetadata(), Arrays.asList(SYSLOG_DRAIN), null)));
     }
 
-
     private List<Plan> getSharedPlans() {
-        return Lists.newArrayList(new Plan(UUID.randomUUID().toString() + "-shared-plan", "shared",
+        return Lists.newArrayList(new Plan(configuration.getCfBaseId() + "-shared-plan", "shared",
                 "This is a default yarn plan.", null, true));
+    }
+
+    private Map<String, Object> getServiceDefinitionMetadata() {
+        Map<String,Object> serviceMetadata = new HashMap<>();
+
+        serviceMetadata.put(IMAGE_URL, configuration.getImageUrl());
+
+        return serviceMetadata;
     }
 
 }

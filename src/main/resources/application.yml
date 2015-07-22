@@ -12,6 +12,10 @@ cf:
   servicename: ${cf.catalog.servicename:yarn}
   #id of service in cloud foundry catalog
   serviceid: ${cf.catalog.serviceid:yarn}
+  #id of base plan in cloud foundry catalog
+  baseId: ${BASE_GUID:}
 kerberos:
   kdc: ${krb.kdc.host:}
   realm: ${krb.realm:}
+metadata:
+  imageUrl: ${IMAGE_URL:}
