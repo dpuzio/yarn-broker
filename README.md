@@ -42,7 +42,7 @@ cf se yarn-broker KRB_REALM US-WEST-2.COMPUTE.INTERNAL
 ```
 
 ## Injection of Yarn configuration
-YARN configuration must be set via HADOOP_PROVIDED_PARAMS environment variable. Description of this process is this same as in HDFS broker case ( https://github.com/intel-data/hdfs-broker/ ).
+YARN configuration must be set via HADOOP_PROVIDED_PARAMS environment variable. Description of this process is this same as in HDFS broker case ( https://github.com/trustedanalytics/hdfs-broker/ ).
 
 ## Zookeeper configuration
 Broker instance should be bind with zookeeper broker instance to get zookeeper configuration.
