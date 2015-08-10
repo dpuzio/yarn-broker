@@ -21,6 +21,7 @@ import org.trustedanalytics.hadoop.HadoopConfigurationHelper;
 import org.trustedanalytics.cfbroker.store.api.BrokerStore;
 import org.trustedanalytics.cfbroker.store.impl.ServiceInstanceBindingServiceStore;
 import org.trustedanalytics.hadoop.HadoopConfigurationHelper;
+import org.trustedanalytics.hadoop.config.ConfigConstants;
 import org.trustedanalytics.servicebroker.yarn.service.YarnServiceInstanceBindingService;
 import org.cloudfoundry.community.servicebroker.model.CreateServiceInstanceBindingRequest;
 import org.cloudfoundry.community.servicebroker.service.ServiceInstanceBindingService;
@@ -62,7 +63,7 @@ public class ServiceInstanceBindingServiceConfig {
                 "kerberos", ImmutableMap.of(
                         "kerberos", ImmutableMap.of("kdc", configuration.getKerberosKdc(),
                         "krealm", configuration.getKerberosRealm()),
-                        HadoopConfigurationHelper.TRUSTEDANALYTICS_HADOOP_CONFIG_NODE_NAME,
+                        ConfigConstants.HADOOP_CONFIG_KEY_VALUE,
                         ImmutableMap.copyOf(hadoopConf.orElse(Collections.emptyMap()))
                 ));
     }

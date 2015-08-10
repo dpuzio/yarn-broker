@@ -18,6 +18,7 @@ package org.trustedanalytics.servicebroker.yarn.service;
 
 import com.google.common.collect.ImmutableMap;
 import org.trustedanalytics.hadoop.HadoopConfigurationHelper;
+import org.trustedanalytics.hadoop.config.ConfigConstants;
 import org.trustedanalytics.servicebroker.yarn.config.ExternalConfiguration;
 
 import org.cloudfoundry.community.servicebroker.model.*;
@@ -48,7 +49,7 @@ public class YarnServiceInstanceBindingServiceTest {
     @Before
     public void init() {
         service = new YarnServiceInstanceBindingService(instanceBindingService, ImmutableMap
-                .of(HadoopConfigurationHelper.TRUSTEDANALYTICS_HADOOP_CONFIG_NODE_NAME, "{}"), configuration);
+                .of(ConfigConstants.HADOOP_CONFIG_KEY_VALUE, "{}"), configuration);
     }
 
     @Test
@@ -59,7 +60,7 @@ public class YarnServiceInstanceBindingServiceTest {
         when(instanceBindingService.createServiceInstanceBinding(request)).thenReturn(getServiceInstanceBinding("id"));
         ServiceInstanceBinding instance = service.createServiceInstanceBinding(request);
 
-        assertThat(instance.getCredentials().get(HadoopConfigurationHelper.TRUSTEDANALYTICS_HADOOP_CONFIG_NODE_NAME), equalTo("{}"));
+        assertThat(instance.getCredentials().get(ConfigConstants.HADOOP_CONFIG_KEY_VALUE), equalTo("{}"));
     }
 
     private ServiceInstanceBinding getServiceInstanceBinding(String id) {
