@@ -5,7 +5,7 @@
     <scm>
         <connection>scm:git:git@yarn-broker:trustedanalytics/yarn-broker.git</connection>
     </scm>
-    <version>0.4.0</version>
+    <version>0.4.1-SNAPSHOOT</version>
 
     <parent>
         <groupId>org.trustedanalytics</groupId>
