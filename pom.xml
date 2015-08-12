@@ -4,8 +4,9 @@
     <artifactId>yarn-broker</artifactId>
     <scm>
         <connection>scm:git:git@yarn-broker:trustedanalytics/yarn-broker.git</connection>
-    </scm>
-    <version>0.4.1-SNAPSHOT</version>
+      <tag>org.trustedanalytics.yarn-broker-0.4.1</tag>
+  </scm>
+    <version>0.4.1</version>
 
     <parent>
         <groupId>org.trustedanalytics</groupId>
