@@ -5,12 +5,12 @@
     <scm>
         <connection>scm:git:git@yarn-broker:trustedanalytics/yarn-broker.git</connection>
     </scm>
-    <version>0.4.1-SNAPSHOOT</version>
+    <version>0.4.1-SNAPSHOT</version>
 
     <parent>
         <groupId>org.trustedanalytics</groupId>
         <artifactId>spring-project-template</artifactId>
-        <version>0.4.0</version>
+        <version>0.4.1</version>
     </parent>
 
     <properties>
@@ -109,7 +109,7 @@
         <dependency>
             <groupId>org.trustedanalytics</groupId>
             <artifactId>hadoop-utils</artifactId>
-            <version>0.4.0</version>
+            <version>0.4.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
@@ -124,12 +124,12 @@
         <dependency>
             <groupId>org.trustedanalytics.servicebroker.repository</groupId>
             <artifactId>broker-store-commons</artifactId>
-            <version>0.4.0</version>
+            <version>0.4.1</version>
         </dependency>
         <dependency>
             <groupId>org.trustedanalytics.servicebroker.repository</groupId>
             <artifactId>zookeeper-broker-store</artifactId>
-            <version>0.4.0</version>
+            <version>0.4.1</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
