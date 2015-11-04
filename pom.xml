@@ -152,7 +152,7 @@
         <dependency>
             <groupId>org.cloudfoundry</groupId>
             <artifactId>spring-boot-cf-service-broker</artifactId>
-            <version>${brokerVersion}</version>
+			<version>2.6.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

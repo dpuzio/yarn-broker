@@ -35,6 +35,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {Application.class, ConfigurationTest.class})
 @IntegrationTest
@@ -85,7 +88,12 @@ public class YarnBrokerIntegrationTest {
     }
 
     private CreateServiceInstanceRequest getCreateInstanceRequest(String serviceId) {
-        return new CreateServiceInstanceRequest("serviceDefinitionId", "planId", "organizationGuid","spaceGuid").
+        
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("field1", "aaaa");
+        params.put("field2", 2);
+        
+        return new CreateServiceInstanceRequest("serviceDefinitionId", "planId", "organizationGuid","spaceGuid", params).
                 withServiceInstanceId(serviceId);
     }
 }
